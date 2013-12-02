@@ -33,7 +33,7 @@
         }
     }
     
-    angular.module('DelegateEvents', []).directive(function($parse) {
+    angular.module('DelegateEvents', []).directive('dg-event', function($parse) {
         
         return function(scope, ele, attrs) {
             var selector = attrs.selector;
