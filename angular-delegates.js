@@ -29,7 +29,7 @@
     
     if (!root.contains) {
         Node.prototype.contains = function(arg) {
-                return !!(this.compareDocumentPosition(arg) & 16);
+            return !!(this.compareDocumentPosition(arg) & 16);
         }
     }
     
