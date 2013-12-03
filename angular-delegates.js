@@ -10,7 +10,7 @@
                           root.msMatchesSelector ||
                           root.oMatchesSelector;
     var mSelector = function(ele, selector) {
-        if (jQuery) {
+        if (angular.isDefined(jQuery)) {
             return jQuery(ele).is(selector);
         }
         if (matchesSelector) {
