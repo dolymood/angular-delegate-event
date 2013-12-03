@@ -55,7 +55,7 @@
                         if ((el = getClosest(target, selector, ele[0]))) {
                             e.delegationTarget = el;
                             scope.$apply(function() {
-                                func(ag.element(el).scope(), {$event: e});
+                                func(ag.element(el).scope(), {$event: e, $params: [].slice.call(arguments, 1)});
                             });
                         }
                     });
