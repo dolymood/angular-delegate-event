@@ -10,6 +10,9 @@
                           root.msMatchesSelector ||
                           root.oMatchesSelector;
     var mSelector = function(ele, selector) {
+        if (jQuery) {
+            return jQuery(ele).is(selector);
+        }
         if (matchesSelector) {
             return matchesSelector.call(ele, selector);
         }
