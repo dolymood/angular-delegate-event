@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Angular-delegate-event by dolymood</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Angular-delegate-event</h1>
+      <h2 class="project-tagline">angular 事件代理</h2>
+      <a href="https://github.com/dolymood/angular-delegate-event" class="btn">View on GitHub</a>
+      <a href="https://github.com/dolymood/angular-delegate-event/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/dolymood/angular-delegate-event/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="angular-delegate-event" class="anchor" href="#angular-delegate-event" aria-hidden="true"><span class="octicon octicon-link"></span></a>angular-delegate-event</h1>
+
+<p>在angular中，默认不支持事件代理，但是在处理大量数据的时候，尤其是一些列表的时候，事件代理是必须的，那应该怎么样实现这个代理呢，并且用起来很方便呢，此处实现一个，有参考nishp1的<a href="https://github.com/nishp1/angular-delegate-event/blob/master/src/angular-delegates.js">angular-delegate-event</a>实现；增加了对象式代理，详见使用方法</p>
+
+<h2>
+<a id="使用方法" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用方法：</h2>
+
+<div class="highlight highlight-html"><pre>  &lt;<span class="pl-ent">ul</span> <span class="pl-e">ngd-click</span>=<span class="pl-s"><span class="pl-pds">"</span>itemClick($event, item)<span class="pl-pds">"</span></span> <span class="pl-e">selector</span>=<span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">li</span> <span class="pl-e">ng-repeat</span>=<span class="pl-s"><span class="pl-pds">"</span>item in items<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript:;<span class="pl-pds">"</span></span>&gt;item.name&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;/<span class="pl-ent">ul</span>&gt;
+
+  &lt;<span class="pl-ent">ul</span> <span class="pl-e">ngd-event</span>=<span class="pl-s"><span class="pl-pds">"</span>itemClick($event, item)<span class="pl-pds">"</span></span> <span class="pl-e">event-name</span>=<span class="pl-s"><span class="pl-pds">"</span>click<span class="pl-pds">"</span></span> <span class="pl-e">selector</span>=<span class="pl-s"><span class="pl-pds">"</span>li<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">li</span> <span class="pl-e">ng-repeat</span>=<span class="pl-s"><span class="pl-pds">"</span>item in items<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript:;<span class="pl-pds">"</span></span>&gt;item.name&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;/<span class="pl-ent">ul</span>&gt;</pre></div>
+
+<div class="highlight highlight-html"><pre>  &lt;<span class="pl-ent">ul</span> <span class="pl-e">ngd-event</span>=<span class="pl-s"><span class="pl-pds">"</span>{click:'itemClick($event, item)','dblclick':'itemDblClick($event)'}<span class="pl-pds">"</span></span> <span class="pl-e">selector</span>=<span class="pl-s"><span class="pl-pds">"</span>{click:'li',dblclick:'a'}<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">li</span> <span class="pl-e">ng-repeat</span>=<span class="pl-s"><span class="pl-pds">"</span>item in items<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript:;<span class="pl-pds">"</span></span>&gt;item.name&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;/<span class="pl-ent">ul</span>&gt;</pre></div>
+
+<p>内置的一些事件：<code>click</code>, <code>dblclick</code>, <code>mousedown</code>, <code>mouseup</code>, <code>mouseover</code>, <code>mouseout</code>, <code>mousemove</code>, <code>mouseenter</code>, <code>mouseleave</code></p>
+
+<h4>
+<a id="controller写法" class="anchor" href="#controller%E5%86%99%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>controller写法</h4>
+
+<div class="highlight highlight-js"><pre>  <span class="pl-c">// 依赖DelegateEvents</span>
+  <span class="pl-k">var</span> app <span class="pl-k">=</span> angular.module(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>DelegateEvents<span class="pl-pds">'</span></span>]);
+
+  app.controller(<span class="pl-s"><span class="pl-pds">'</span>listCtl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">$scope</span>) {
+
+    <span class="pl-c1">$scope</span>.<span class="pl-en">itemClick</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">e</span>, <span class="pl-smi">item</span>) {
+      <span class="pl-c">// do something...</span>
+
+      <span class="pl-c">// 注：</span>
+      <span class="pl-c">// e 原始的event对象，但是增加了delegationTarget =&gt; 代理target元素</span>
+      <span class="pl-c">//</span>
+      <span class="pl-c">// 对于selector这块，如果引用了jQuery的话，则支持的是jquery的选择器</span>
+      <span class="pl-c">// 对于支持matchesSelector的浏览器来说，支持的就是标准的选择器；</span>
+      <span class="pl-c">// 否则的话只能支持tagName...</span>
+    };
+    <span class="pl-c">// itemDblClick 同理。。</span>
+  })</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/dolymood/angular-delegate-event">Angular-delegate-event</a> is maintained by <a href="https://github.com/dolymood">dolymood</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
